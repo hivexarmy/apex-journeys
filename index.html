@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apex Journeys — The world's circuits. Your playground.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #E10600;
+      --gold: #C9A84C;
+      --bg: #0A0A0A;
+      --bg2: #111111;
+      --bg3: #1A1A1A;
+      --border: #2A2A2A;
+      --text: #F0F0F0;
+      --muted: #888;
+      --white: #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 3px;
+      color: var(--white);
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .logo span { color: var(--red); }
+
+    nav { display: flex; align-items: center; gap: 32px; }
+
+    nav a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    nav a:hover { color: var(--white); }
+
+    .btn-cta {
+      background: var(--red);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background .2s;
+    }
+    .btn-cta:hover { background: #c00500; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1541773367336-d3f109800c4f?w=1800&q=75&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center 30%;
+      filter: brightness(0.22) saturate(0.7);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(100deg, rgba(10,10,10,0.92) 45%, rgba(10,10,10,0.25) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      padding-top: 64px;
+      width: 100%;
+    }
+
+    .hero-next-gp {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(225,6,0,0.12);
+      border: 1px solid rgba(225,6,0,0.4);
+      padding: 7px 16px;
+      margin-bottom: 28px;
+    }
+
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .hero-next-gp span {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .hero-h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(56px, 9vw, 108px);
+      font-weight: 800;
+      line-height: 0.93;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--red);
+    }
+
+    .hero-sub {
+      max-width: 500px;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 44px;
+    }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-outline:hover { border-color: var(--white); color: var(--white); }
+
+    /* SECTIONS */
+    section { padding: 100px 40px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 56px;
+    }
+
+    .red-line { height: 3px; background: var(--red); width: 44px; margin-bottom: 48px; }
+
+    /* PACKAGES */
+    #pacotes { background: var(--bg2); }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-bottom: 2px;
+    }
+
+    .pkg-card {
+      background: var(--bg3);
+      padding: 40px;
+      transition: transform .25s;
+    }
+    .pkg-card:hover { transform: translateY(-5px); }
+
+    .pkg-continent {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .pkg-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .pkg-tagline { font-size: 13px; color: var(--muted); margin-bottom: 20px; font-style: italic; }
+
+    .pkg-gps { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+    .pkg-gps strong { color: var(--text); }
+
+    .pkg-features { list-style: none; margin: 0 0 28px; }
+    .pkg-features li {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .pkg-features li::before { content: '—'; color: var(--red); flex-shrink: 0; }
+
+    .pkg-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .pkg-price span { font-size: 13px; font-weight: 400; color: var(--muted); font-family: 'Inter', sans-serif; }
+
+    .packages-premium {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .pkg-premium {
+      background: var(--bg3);
+      border-top: 3px solid var(--gold);
+      padding: 48px;
+      transition: transform .25s;
+    }
+    .pkg-premium:hover { transform: translateY(-5px); }
+
+    .pkg-badge {
+      display: inline-block;
+      background: var(--gold);
+      color: #000;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      margin-bottom: 18px;
+    }
+
+    /* CALENDAR */
+    #calendario { background: var(--bg); }
+
+    .calendar-continents { display: flex; flex-direction: column; gap: 52px; }
+
+    .cal-group-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cal-table { width: 100%; border-collapse: collapse; }
+
+    .cal-table th {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cal-table td {
+      padding: 14px 16px;
+      font-size: 14px;
+      border-bottom: 1px solid rgba(42,42,42,0.4);
+      vertical-align: middle;
+    }
+
+    .cal-table tr:last-child td { border-bottom: none; }
+    .cal-table tr:hover td { background: rgba(26,26,26,0.8); }
+
+    .rnd {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--red);
+      width: 52px;
+    }
+
+    .gp-name { font-weight: 500; color: var(--white); }
+    .gp-circuit { color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+    .gp-dates {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .next-race td { background: rgba(225,6,0,0.07) !important; border-left: 3px solid var(--red); }
+
+    /* WHY */
+    #porque { background: var(--bg2); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+    }
+
+    .why-card { background: var(--bg3); padding: 36px 26px; }
+
+    .why-icon { font-size: 30px; margin-bottom: 16px; }
+
+    .why-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+
+    .why-text { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* CONTACT */
+    #contato { background: var(--bg); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .contact-info-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 44px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 14px;
+      line-height: 1;
+    }
+
+    .contact-info-sub { font-size: 15px; color: var(--muted); margin-bottom: 40px; line-height: 1.7; }
+
+    .contact-detail { display: flex; flex-direction: column; gap: 18px; }
+
+    .contact-item { display: flex; gap: 14px; align-items: flex-start; }
+    .contact-item-icon { font-size: 18px; width: 24px; flex-shrink: 0; margin-top: 2px; }
+
+    .contact-item-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .contact-item-text { font-size: 14px; color: var(--text); }
+
+    form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+
+    .form-field label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      padding: 13px 16px;
+      outline: none;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus { border-color: var(--red); }
+
+    .form-field select { cursor: pointer; }
+    .form-field textarea { resize: vertical; min-height: 110px; }
+
+    .btn-submit {
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border: none;
+      cursor: pointer;
+      transition: background .2s;
+      align-self: flex-start;
+    }
+    .btn-submit:hover { background: #c00500; }
+
+    /* FOOTER */
+    footer {
+      background: #050505;
+      border-top: 1px solid var(--border);
+      padding: 64px 40px 40px;
+    }
+
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .footer-logo span { color: var(--red); }
+
+    .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
+
+    .footer-tagline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .footer-col h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-col a:hover { color: var(--white); }
+
+    .footer-bottom {
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-legal { font-size: 11px; color: var(--muted); line-height: 1.6; max-width: 600px; }
+    .footer-copy { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      header { padding: 0 20px; }
+      nav { display: none; }
+      section { padding: 72px 20px; }
+      .packages-grid { grid-template-columns: 1fr; }
+      .packages-premium { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      footer { padding: 48px 20px 32px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-h1 { font-size: 52px; }
+      .why-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">Apex<span>.</span>Journeys</a>
+    <nav>
+      <a href="#pacotes">Pacotes</a>
+      <a href="#calendario">Calendário</a>
+      <a href="#porque">Por que nós</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a href="#contato" class="btn-cta">Quero minha vaga</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-next-gp">
+      <div class="dot"></div>
+      <span>Próxima prova: R1 Austrália — 06–08 Mar 2026</span>
+    </div>
+    <p class="hero-eyebrow">A agência oficial dos paddocks do mundo</p>
+    <h1 class="hero-h1">
+      The world's<br />
+      circuits.<br />
+      <em>Your playground.</em>
+    </h1>
+    <p class="hero-sub">
+      Apex Journeys é a única agência especializada em levar apaixonados por Fórmula 1 a todas as 24 provas do calendário 2026 — com a precisão de uma equipe de ponta e o conforto que você merece fora da pista.
+    </p>
+    <div class="hero-actions">
+      <a href="#pacotes" class="btn-cta">Ver pacotes</a>
+      <a href="#calendario" class="btn-outline">Calendário 2026</a>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="pacotes">
+  <div class="container">
+    <p class="section-label">Pacotes 2026</p>
+    <h2 class="section-title">Every corner.<br />Every race.</h2>
+    <div class="red-line"></div>
+
+    <div class="packages-grid">
+      <!-- Américas -->
+      <div class="pkg-card">
+        <p class="pkg-continent">🌎 Américas</p>
+        <h3 class="pkg-name">Pacote Américas</h3>
+        <p class="pkg-tagline">"Da pista ao horizonte"</p>
+        <p class="pkg-gps"><strong>6 GPs incluídos:</strong> Miami · Canadá · EUA · México · Brasil · Las Vegas</p>
+        <ul class="pkg-features">
+          <li>Passagens aéreas internacionais</li>
+          <li>Hospedagem 4★ por 4 noites por GP</li>
+          <li>Ingressos Grandstand premium — 3 dias</li>
+          <li>Transfers privados em todos os destinos</li>
+          <li>Welcome pack Apex por circuito</li>
+          <li>Concierge dedicado 24/7 nos GPs</li>
+        </ul>
+        <div class="pkg-price">USD 28.500 <span>/ pessoa em duplo</span></div>
+        <a href="#contato" class="btn-cta">Solicitar proposta</a>
+      </div>
+
+      <!-- Europa -->
+      <div class="pkg-card">
+        <p class="pkg-continent">🇪🇺 Europa</p>
+        <h3 class="pkg-name">Pacote Europa</h3>
+        <p class="pkg-tagline">"The Old Continent at Full Speed"</p>
+        <p class="pkg-gps"><strong>9 GPs incluídos:</strong> Monaco · Barcelona · Áustria · Silverstone · Spa · Hungria · Holanda · Monza · Madri</p>
+        <ul class="pkg-features">
+          <li>Passagens aéreas internacionais</li>
+          <li>Hospedagem 4★ por 4 noites por GP</li>
+          <li>Ingressos Grandstand premium — 3 dias</li>
+          <li>Rail pass Eurail entre destinos selecionados</li>
+          <li>Transfers privados em todos os destinos</li>
+          <li>Concierge dedicado 24/7 nos GPs</li>
+        </ul>
+        <div class="pkg-price">USD 41.500 <span>/ pessoa em duplo</span></div>
+        <a href="#contato" class="btn-cta">Solicitar proposta</a>
+      </div>
+
+      <!-- Oriente Médio & Ásia -->
+      <div class="pkg-card">
+        <p class="pkg-continent">🌏 Oriente Médio &amp; Ásia</p>
+        <h3 class="pkg-name">Pacote OM &amp; Ásia</h3>
+        <p class="pkg-tagline">"East of the Start Line"</p>
+        <p class="pkg-gps"><strong>9 GPs incluídos:</strong> Austrália · China · Japão · Bahrein · Arábia Saudita · Azerbaijão · Singapura · Qatar · Abu Dhabi</p>
+        <ul class="pkg-features">
+          <li>Passagens aéreas internacionais</li>
+          <li>Hospedagem 4★ por 4 noites por GP</li>
+          <li>Ingressos Grandstand premium — 3 dias</li>
+          <li>City tour em Melbourne, Tóquio e Singapura</li>
+          <li>Transfers privados em todos os destinos</li>
+          <li>Concierge dedicado 24/7 nos GPs</li>
+        </ul>
+        <div class="pkg-price">USD 44.900 <span>/ pessoa em duplo</span></div>
+        <a href="#contato" class="btn-cta">Solicitar proposta</a>
+      </div>
+    </div>
+
+    <!-- Premium -->
+    <div class="packages-premium" style="margin-top:2px;">
+      <div class="pkg-premium">
+        <span class="pkg-badge">Temporada completa</span>
+        <h3 class="pkg-name" style="font-size:40px;">Full Season</h3>
+        <p class="pkg-tagline">"Para quem a temporada inteira não é opção — é estilo de vida."</p>
+        <p class="pkg-gps"><strong>24 GPs incluídos</strong> — calendário completo F1 2026</p>
+        <ul class="pkg-features" style="margin-top:16px;">
+          <li>Todos os itens dos três pacotes continentais</li>
+          <li>Gerente de viagem pessoal Apex para a temporada</li>
+          <li>Lounge exclusivo Apex em GPs parceiros</li>
+          <li>Seguro viagem premium para toda a temporada</li>
+          <li>Mala personalizada Apex Journeys — edição limitada 2026</li>
+          <li>Relatório fotográfico profissional em 4 GPs à escolha</li>
+        </ul>
+        <div class="pkg-price" style="font-size:52px;margin-top:24px;">USD 98.000 <span>/ pessoa em duplo</span></div>
+        <p style="font-size:12px;color:var(--muted);margin:8px 0 24px;">Economize até 15% vs. soma dos pacotes individuais</p>
+        <a href="#contato" class="btn-cta">Solicitar proposta</a>
+      </div>
+
+      <div class="pkg-premium" style="border-top-color:var(--red);">
+        <span class="pkg-badge" style="background:var(--red);color:#fff;">Exclusivo</span>
+        <h3 class="pkg-name" style="font-size:40px;">Apex One Premium</h3>
+        <p class="pkg-tagline">"Existe um nível acima das arquibancadas. Você deveria conhecê-lo."</p>
+        <p class="pkg-gps"><strong>24 GPs incluídos</strong> — máxima exclusividade</p>
+        <ul class="pkg-features" style="margin-top:16px;">
+          <li>F1 Paddock Club em todos os 24 GPs</li>
+          <li>Pit Lane Walk em 8 GPs selecionados</li>
+          <li>Hospitality de equipe em 6 GPs com acesso a pilotos</li>
+          <li>Voos em classe business em todos os trechos</li>
+          <li>Hospedagem 5★ — Four Seasons, Aman, Bulgari...</li>
+          <li>Transfers em Mercedes S-Class / Range Rover</li>
+          <li>Concierge pessoal 24/7 + fotógrafo credenciado em 6 GPs</li>
+          <li>Welcome dinner com ex-piloto convidado por GP</li>
+        </ul>
+        <div class="pkg-price" style="font-size:52px;margin-top:24px;">USD 185.000 <span>/ pessoa em duplo</span></div>
+        <p style="font-size:12px;color:var(--muted);margin:8px 0 24px;">Produzido sob medida. Individual sob consulta.</p>
+        <a href="#contato" class="btn-cta">Solicitar proposta</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section id="calendario">
+  <div class="container">
+    <p class="section-label">Temporada 2026</p>
+    <h2 class="section-title">Calendário F1 2026</h2>
+    <p class="section-sub">24 Grandes Prêmios em 5 continentes — de março a dezembro.</p>
+    <div class="red-line"></div>
+
+    <div class="calendar-continents">
+
+      <div>
+        <p class="cal-group-title">🌏 Ásia-Pacífico &amp; Oriente Médio — Abertura de Temporada</p>
+        <table class="cal-table">
+          <thead><tr><th>Rnd</th><th>Grande Prêmio</th><th>Circuito</th><th>Datas</th></tr></thead>
+          <tbody>
+            <tr class="next-race">
+              <td class="rnd">R1</td>
+              <td><div class="gp-name">Austrália 🇦🇺</div><div class="gp-circuit">Albert Park Circuit, Melbourne</div></td>
+              <td></td>
+              <td class="gp-dates">06–08 Mar 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R2</td>
+              <td><div class="gp-name">China 🇨🇳</div><div class="gp-circuit">Shanghai International Circuit</div></td>
+              <td></td>
+              <td class="gp-dates">13–15 Mar 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R3</td>
+              <td><div class="gp-name">Japão 🇯🇵</div><div class="gp-circuit">Suzuka International Racing Course</div></td>
+              <td></td>
+              <td class="gp-dates">27–29 Mar 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R4</td>
+              <td><div class="gp-name">Bahrein 🇧🇭</div><div class="gp-circuit">Bahrain International Circuit</div></td>
+              <td></td>
+              <td class="gp-dates">10–12 Abr 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R5</td>
+              <td><div class="gp-name">Arábia Saudita 🇸🇦</div><div class="gp-circuit">Jeddah Corniche Circuit</div></td>
+              <td></td>
+              <td class="gp-dates">17–19 Abr 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <p class="cal-group-title">🌎 Américas — Primavera</p>
+        <table class="cal-table">
+          <thead><tr><th>Rnd</th><th>Grande Prêmio</th><th>Circuito</th><th>Datas</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="rnd">R6</td>
+              <td><div class="gp-name">Miami 🇺🇸</div><div class="gp-circuit">Miami International Autodrome</div></td>
+              <td></td>
+              <td class="gp-dates">01–03 Mai 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R7</td>
+              <td><div class="gp-name">Canadá 🇨🇦</div><div class="gp-circuit">Circuit Gilles Villeneuve, Montreal</div></td>
+              <td></td>
+              <td class="gp-dates">22–24 Mai 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <p class="cal-group-title">🇪🇺 Europa — Verão Europeu</p>
+        <table class="cal-table">
+          <thead><tr><th>Rnd</th><th>Grande Prêmio</th><th>Circuito</th><th>Datas</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="rnd">R8</td>
+              <td><div class="gp-name">Monaco 🇲🇨</div><div class="gp-circuit">Circuit de Monaco</div></td>
+              <td></td>
+              <td class="gp-dates">05–07 Jun 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R9</td>
+              <td><div class="gp-name">Espanha 🇪🇸</div><div class="gp-circuit">Circuit de Barcelona-Catalunya</div></td>
+              <td></td>
+              <td class="gp-dates">12–14 Jun 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R10</td>
+              <td><div class="gp-name">Áustria 🇦🇹</div><div class="gp-circuit">Red Bull Ring, Spielberg</div></td>
+              <td></td>
+              <td class="gp-dates">26–28 Jun 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R11</td>
+              <td><div class="gp-name">Grã-Bretanha 🇬🇧</div><div class="gp-circuit">Silverstone Circuit</div></td>
+              <td></td>
+              <td class="gp-dates">03–05 Jul 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R12</td>
+              <td><div class="gp-name">Bélgica 🇧🇪</div><div class="gp-circuit">Circuit de Spa-Francorchamps</div></td>
+              <td></td>
+              <td class="gp-dates">17–19 Jul 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R13</td>
+              <td><div class="gp-name">Hungria 🇭🇺</div><div class="gp-circuit">Hungaroring, Budapeste</div></td>
+              <td></td>
+              <td class="gp-dates">24–26 Jul 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R14</td>
+              <td><div class="gp-name">Holanda 🇳🇱</div><div class="gp-circuit">Circuit Zandvoort</div></td>
+              <td></td>
+              <td class="gp-dates">21–23 Ago 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R15</td>
+              <td><div class="gp-name">Itália 🇮🇹</div><div class="gp-circuit">Autodromo Nazionale di Monza</div></td>
+              <td></td>
+              <td class="gp-dates">04–06 Set 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R16</td>
+              <td><div class="gp-name">Espanha 🇪🇸</div><div class="gp-circuit">Madrid Street Circuit</div></td>
+              <td></td>
+              <td class="gp-dates">11–13 Set 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <p class="cal-group-title">🌏 Oriente Médio &amp; Ásia — Outono</p>
+        <table class="cal-table">
+          <thead><tr><th>Rnd</th><th>Grande Prêmio</th><th>Circuito</th><th>Datas</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="rnd">R17</td>
+              <td><div class="gp-name">Azerbaijão 🇦🇿</div><div class="gp-circuit">Baku City Circuit</div></td>
+              <td></td>
+              <td class="gp-dates">24–26 Set 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R18</td>
+              <td><div class="gp-name">Singapura 🇸🇬</div><div class="gp-circuit">Marina Bay Street Circuit</div></td>
+              <td></td>
+              <td class="gp-dates">09–11 Out 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <p class="cal-group-title">🌎 Américas — Final de Temporada</p>
+        <table class="cal-table">
+          <thead><tr><th>Rnd</th><th>Grande Prêmio</th><th>Circuito</th><th>Datas</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="rnd">R19</td>
+              <td><div class="gp-name">Estados Unidos 🇺🇸</div><div class="gp-circuit">Circuit of the Americas, Austin</div></td>
+              <td></td>
+              <td class="gp-dates">23–25 Out 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R20</td>
+              <td><div class="gp-name">México 🇲🇽</div><div class="gp-circuit">Autódromo Hermanos Rodríguez</div></td>
+              <td></td>
+              <td class="gp-dates">30 Out–01 Nov 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R21</td>
+              <td><div class="gp-name">Brasil 🇧🇷</div><div class="gp-circuit">Autódromo José Carlos Pace, São Paulo</div></td>
+              <td></td>
+              <td class="gp-dates">06–08 Nov 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R22</td>
+              <td><div class="gp-name">Las Vegas 🇺🇸</div><div class="gp-circuit">Las Vegas Strip Circuit</div></td>
+              <td></td>
+              <td class="gp-dates">19–21 Nov 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <p class="cal-group-title">🏁 Encerramento — Golfo Pérsico</p>
+        <table class="cal-table">
+          <thead><tr><th>Rnd</th><th>Grande Prêmio</th><th>Circuito</th><th>Datas</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="rnd">R23</td>
+              <td><div class="gp-name">Qatar 🇶🇦</div><div class="gp-circuit">Lusail International Circuit</div></td>
+              <td></td>
+              <td class="gp-dates">27–29 Nov 2026</td>
+            </tr>
+            <tr>
+              <td class="rnd">R24</td>
+              <td><div class="gp-name">Abu Dhabi 🇦🇪</div><div class="gp-circuit">Yas Marina Circuit</div></td>
+              <td></td>
+              <td class="gp-dates">04–06 Dez 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="porque">
+  <div class="container">
+    <p class="section-label">Nossos diferenciais</p>
+    <h2 class="section-title">Por que a<br />Apex Journeys?</h2>
+    <div class="red-line"></div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🏎️</div>
+        <h3 class="why-title">Expertise que vem da paixão</h3>
+        <p class="why-text">Nossa equipe é formada por fãs de F1 que conhecem cada circuito, cada curva e cada detalhe logístico de cada GP. Não vendemos pacotes genéricos — planejamos experiências.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <h3 class="why-title">Logística sem atrito</h3>
+        <p class="why-text">De Melbourne a Las Vegas, coordenamos cada transfer, check-in e ingresso com antecedência cirúrgica. Você chega no grid. O resto é com a gente.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎫</div>
+        <h3 class="why-title">Acesso exclusivo</h3>
+        <p class="why-text">Relações diretas com organizadoras dos GPs nos permitem oferecer ingressos em setores premium e hospitalidades de equipe antes que cheguem ao mercado geral.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🏨</div>
+        <h3 class="why-title">Acomodação selecionada</h3>
+        <p class="why-text">Cada hotel do nosso portfólio foi escolhido pela localização estratégica, padrão de serviço e história com o mundo da F1. Nada de surpresas na chegada.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📞</div>
+        <h3 class="why-title">Suporte 24/7 no paddock</h3>
+        <p class="why-text">Um concierge Apex disponível em tempo real durante todos os fins de semana de prova — porque imprevistos no paddock não esperam horário comercial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contato">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <p class="section-label">Vamos conversar</p>
+        <h2 class="contact-info-title">Sua temporada<br />começa aqui.</h2>
+        <p class="contact-info-sub">Os lugares nos pacotes Apex Journeys são limitados. Cada GP tem capacidade reduzida para garantir a qualidade da experiência — os melhores ingressos são alocados primeiro para quem reserva com antecedência.</p>
+        <div class="contact-detail">
+          <div class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div>
+              <p class="contact-item-label">E-mail</p>
+              <p class="contact-item-text">hello@apexjourneys.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📱</div>
+            <div>
+              <p class="contact-item-label">WhatsApp</p>
+              <p class="contact-item-text">+1 (305) 000-0000</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📷</div>
+            <div>
+              <p class="contact-item-label">Instagram</p>
+              <p class="contact-item-text">@apexjourneys.f1</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">🕐</div>
+            <div>
+              <p class="contact-item-label">Atendimento</p>
+              <p class="contact-item-text">Seg–Sex 9h–20h EST · Fins de semana de prova: 24/7</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <form onsubmit="handleSubmit(event);">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="nome">Nome completo</label>
+              <input type="text" id="nome" name="nome" placeholder="Seu nome completo" />
+            </div>
+            <div class="form-field">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="seu@email.com" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="pacote">Pacote de interesse</label>
+            <select id="pacote" name="pacote">
+              <option value="" disabled selected>Selecione um pacote</option>
+              <option>Pacote Américas — USD 28.500</option>
+              <option>Pacote Europa — USD 41.500</option>
+              <option>Pacote Oriente Médio &amp; Ásia-Pacífico — USD 44.900</option>
+              <option>Full Season (24 GPs) — USD 98.000</option>
+              <option>Apex One Premium — USD 185.000</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" placeholder="Conte-nos sobre suas preferências de viagem, datas, número de viajantes, pedidos especiais..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Enviar interesse →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">Apex<span>.</span>Journeys</div>
+        <p>A única agência especializada em experiências completas de Fórmula 1 ao redor do mundo. 24 GPs. 5 continentes. Uma temporada inteira.</p>
+        <p class="footer-tagline">The world's circuits. Your playground.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pacotes</h4>
+        <ul>
+          <li><a href="#pacotes">Américas (6 GPs)</a></li>
+          <li><a href="#pacotes">Europa (9 GPs)</a></li>
+          <li><a href="#pacotes">Oriente Médio &amp; Ásia (9 GPs)</a></li>
+          <li><a href="#pacotes">Full Season (24 GPs)</a></li>
+          <li><a href="#pacotes">Apex One Premium</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Calendário 2026</h4>
+        <ul>
+          <li><a href="#calendario">Temporada completa</a></li>
+          <li><a href="#calendario">Mar–Dez 2026</a></li>
+          <li><a href="#calendario">24 Grandes Prêmios</a></li>
+          <li><a href="#calendario">5 continentes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Política de Cancelamento</a></li>
+          <li><a href="#">Termos &amp; Condições</a></li>
+          <li><a href="#">Política de Privacidade</a></li>
+          <li><a href="#">Seguros de Viagem</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">Apex Journeys não é afiliada à Formula One Management (FOM) ou à FIA. Preços em USD, por pessoa, sujeitos a disponibilidade e variação cambial. Consulte os Termos &amp; Condições completos antes de contratar.</p>
+      <p class="footer-copy">© 2026 Apex Journeys. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-submit');
+    btn.textContent = 'Enviado! Entraremos em contato em breve.';
+    btn.style.background = '#1a6b1a';
+    btn.disabled = true;
+  }
+
+  // Smooth header on scroll
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      header.style.borderBottomColor = '#333';
+    } else {
+      header.style.borderBottomColor = '#2A2A2A';
+    }
+  });
+</script>
+</body>
+</html>
